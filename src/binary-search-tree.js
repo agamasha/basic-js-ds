@@ -16,37 +16,55 @@ class Node {
 }
 
 class BinarySearchTree {
-  root() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor () {
+    this.root = 0;
   }
 
-  add(data) {
-    this.count += 1;
-    let newNode = new Node(data);
-    const searchTree = node => {
-      if (value < node.value) {
-        if (!node.left) {
-          node.left = newNode;
-        }
-        else {
-          searchTree(node.left);
-        }
-      }
-      else if (value > node.value) {
-        if (!node.right) {
-          node.right = newNode;
-        }
-        else {
-          searchTree(node.right);
-        }
-      }
+  root() {
+    if(this.root.value) {
+      return this.root;
+    }
+    else {
+      return null;
     }
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  add(data) {
+    this.root = addWithin(this.root, data);
+
+    function addWithin(node, data) {
+      if (!node) {
+        return new Node(data);
+      }
+
+      if (node.value === data) {
+        return node;
+      }
+
+      if (data < node.value) {
+        node.left = addWithin(node.left, data);
+      }
+      else {
+        node.right = addWithin(node.right, data);
+      }
+      return node;
+    }
+  }
+
+  has(data) {
+    return searchWithin(this.root, data);
+
+    function searchWithin(node, data) {
+      if (!node) {
+        return false;
+      }
+      if (node.value === data) {
+        return true;
+      }
+      return data < node.value ?
+        searchWithin(node.left, data) :
+        searchWithin(node.right, data);
+    }
   }
 
   find(/* data */) {
@@ -60,11 +78,8 @@ class BinarySearchTree {
   }
 
   min() {
-    let currentNode = this;
-    while (currentNode.left) {
-      currentNode = currentNode.left;
-    }
-    return currentNode.value;
+    throw new NotImplementedError('Not implemented');
+    // remove line with error and write your code here
   }
 
   max() {
